@@ -1,0 +1,8 @@
+[build]
+  command = "npm run build"
+
+# Keeps SSR, route handlers and next/image optimisation working on Netlify.
+# The news admin planned for a later round will need all three, so this stays
+# a full Next.js deploy rather than a static export.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

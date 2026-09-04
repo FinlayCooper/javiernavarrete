@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# client source material (kept locally; the site serves copies in public/)
+/cover
+/fotos background
+/fotos opera
+/__MACOSX
+/font.png

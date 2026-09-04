@@ -1,26 +1,28 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * Palette measured from cover/web cover.pdf:
+ *   title/nav  0.921 0.990 0.831  -> #EBFCD4
+ *   link blue  0.001 0.634 1.000  -> #00A2FF  (used as the hover accent)
+ */
+@theme {
+  --color-ground: #0a0806;
+  --color-cream: #ebfcd4;
+  --color-accent: #00a2ff;
+
+  --font-display: var(--font-cormorant), Georgia, "Times New Roman", serif;
+
+  /* The PDF frame is 792 x 445.68pt. Type is sized as a share of that height,
+     then capped against viewport width so it survives narrow screens. */
+  --text-display: clamp(1.35rem, min(6.1vh, 7.2vw), 4.5rem);
+  --text-nav: clamp(0.7rem, min(2.24vh, 2.6vw), 1.5rem);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background-color: var(--color-ground);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-ground);
+  color: var(--color-cream);
 }
