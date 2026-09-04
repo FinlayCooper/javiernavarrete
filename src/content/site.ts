@@ -32,16 +32,16 @@ export const siteName = "Javier Navarrete";
 
 /** Order matches the bottom nav in the approved design. */
 export const sections: Section[] = [
-  { slug: "about", label: "ABOUT", image: "/backgrounds/about.jpg" },
-  { slug: "movies", label: "MOVIES", image: "/backgrounds/movies.jpg" },
-  { slug: "media", label: "MEDIA", image: "/backgrounds/media.jpg" },
-  { slug: "opera", label: "OPERA", image: "/backgrounds/opera.jpg" },
-  { slug: "library", label: "LIBRARY", image: "/backgrounds/library.jpg" },
-  { slug: "news", label: "NEWS", image: "/backgrounds/news.jpg" },
-  { slug: "contact", label: "CONTACT", image: "/backgrounds/contact.jpg" },
+  { slug: "about", label: "ABOUT", image: "/backgrounds/about.webp" },
+  { slug: "movies", label: "MOVIES", image: "/backgrounds/movies.webp" },
+  { slug: "media", label: "MEDIA", image: "/backgrounds/media.webp" },
+  { slug: "opera", label: "OPERA", image: "/backgrounds/opera.webp" },
+  { slug: "library", label: "LIBRARY", image: "/backgrounds/library.webp" },
+  { slug: "news", label: "NEWS", image: "/backgrounds/news.webp" },
+  { slug: "contact", label: "CONTACT", image: "/backgrounds/contact.webp" },
 ];
 
-export const coverImage = "/backgrounds/cover.jpg";
+export const coverImage = "/backgrounds/cover.webp";
 
 // TODO: replace with the client's real profile URLs.
 export const socials: SocialLink[] = [
