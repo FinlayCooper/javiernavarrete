@@ -16,7 +16,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${cormorant.variable} h-full antialiased`}>
+    // Browser extensions stamp attributes on <html> before hydration; this only
+    // silences mismatches on this one element, not its children.
+    <html
+      lang="en"
+      className={`${cormorant.variable} h-full antialiased`}
+      suppressHydrationWarning
+    >
       <body className="min-h-full flex flex-col font-display">{children}</body>
     </html>
   );

@@ -46,3 +46,6 @@ next-env.d.ts
 /fotos opera
 /__MACOSX
 /font.png
+/Content
+/*.zip
+/JN Website.pdf

@@ -16,6 +16,40 @@
      then capped against viewport width so it survives narrow screens. */
   --text-display: clamp(1.35rem, min(6.1vh, 7.2vw), 4.5rem);
   --text-nav: clamp(0.7rem, min(2.24vh, 2.6vw), 1.5rem);
+
+  /* A nav click: the new painting rises out of the dark ground. */
+  --animate-hero-in: hero-in 0.7s ease-out both;
+
+  @keyframes hero-in {
+    from {
+      opacity: 0;
+      transform: scale(1.02);
+    }
+  }
+}
+
+/* The scroll cue's travelling segment: a slow note running down the thread
+   and off the fold. */
+.thread-pulse {
+  animation: thread-pulse 3s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+@keyframes thread-pulse {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(200%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-in {
+    animation: none;
+  }
+  .thread-pulse {
+    display: none;
+  }
 }
 
 html {

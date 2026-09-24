@@ -4,7 +4,7 @@ import { getSection } from "@/content/site";
 
 type Props = {
   slug: string;
-  /** Placeholder body copy; the real content lands in a later round. */
+  /** The section’s content band, rendered between the hero and the footer. */
   children?: React.ReactNode;
 };
 
@@ -15,11 +15,12 @@ export default function SectionPage({ slug, children }: Props) {
     <>
       <Hero
         image={section.image}
-        title={section.label}
         currentSlug={section.slug}
+        fadeIn
+        showScrollCue={Boolean(children)}
       />
       {children}
-      <Footer />
+      <Footer showHomeLink />
     </>
   );
 }
