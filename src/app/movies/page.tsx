@@ -37,7 +37,7 @@ export default function MoviesPage() {
 
               {film.track ? (
                 <div className="mt-4">
-                  <TrackPlayer src={film.track.src} title={film.track.title} />
+                  <TrackPlayer {...film.track} />
                 </div>
               ) : null}
             </li>

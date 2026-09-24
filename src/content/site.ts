@@ -67,6 +67,11 @@ export type Track = {
   src: string;
   /** Shown in the player, as in the mock-up ("GÜNTER"). */
   title: string;
+  /**
+   * Length in whole seconds, so the player can show it without fetching the
+   * file first. Get it with `ffprobe -v error -show_entries format=duration -of csv=p=0 <file>`.
+   */
+  duration: number;
 };
 
 /** Intrinsic size travels with the file so next/image can reserve the box. */
@@ -129,17 +134,17 @@ export const bio: string[] = [
  */
 /** Sourced from the content doc. See LOW_RES_POSTERS for the two that need replacing. */
 export const films: Film[] = [
-  { slug: "in-a-glass-cage", title: "In a Glass Cage", poster: { src: "/posters/in-a-glass-cage.webp", width: 190, height: 281 }, track: { src: "/audio/in-a-glass-cage.mp3", title: "Ritual" } },
-  { slug: "devils-backbone", title: "Devil’s Backbone", poster: { src: "/posters/devils-backbone.webp", width: 900, height: 1350 }, track: { src: "/audio/devils-backbone.mp3", title: "Eso soy yo" } },
-  { slug: "pans-labyrinth", title: "Pan’s Labyrinth", poster: { src: "/posters/pans-labyrinth.webp", width: 900, height: 1343 }, track: { src: "/audio/pans-labyrinth.mp3", title: "A Princess" } },
-  { slug: "cracks", title: "Cracks", poster: { src: "/posters/cracks.webp", width: 300, height: 409 }, track: { src: "/audio/cracks.mp3", title: "Out of Bounds / Seduction" } },
-  { slug: "hemingway-and-gellhorn", title: "Hemingway and Gellhorn", poster: { src: "/posters/hemingway-and-gellhorn.webp", width: 900, height: 1333 }, track: { src: "/audio/hemingway-and-gellhorn.mp3", title: "The Joy of Irrigation" } },
-  { slug: "wrath-of-the-titans", title: "Wrath of the Titans", poster: { src: "/posters/wrath-of-the-titans.webp", width: 610, height: 904 }, track: { src: "/audio/wrath-of-the-titans.mp3", title: "Cyclops / To the Battle" } },
-  { slug: "byzantium", title: "Byzantium", poster: { src: "/posters/byzantium.webp", width: 900, height: 1200 }, track: { src: "/audio/byzantium.mp3", title: "Whore" } },
-  { slug: "zhongkui", title: "Zhongkui: Snow Girl and the Dark Crystal", poster: { src: "/posters/zhongkui.webp", width: 900, height: 1257 }, track: { src: "/audio/zhongkui.mp3", title: "Little Snow / If I Were a Demon" } },
-  { slug: "antlers", title: "Antlers", poster: { src: "/posters/antlers.webp", width: 900, height: 1350 }, track: { src: "/audio/antlers.mp3", title: "Face Off / Aiden Is Just Sick" } },
-  { slug: "sound-of-freedom", title: "Sound of Freedom", poster: { src: "/posters/sound-of-freedom.webp", width: 900, height: 1260 }, track: { src: "/audio/sound-of-freedom.mp3", title: "Sound of Freedom" } },
-  { slug: "raoul-taburin", title: "Raoul Taburin", poster: { src: "/posters/raoul-taburin.webp", width: 900, height: 1350 }, track: { src: "/audio/raoul-taburin.mp3", title: "Rêverie" } },
+  { slug: "in-a-glass-cage", title: "In a Glass Cage", poster: { src: "/posters/in-a-glass-cage.webp", width: 190, height: 281 }, track: { src: "/audio/in-a-glass-cage.mp3", title: "Ritual", duration: 408 } },
+  { slug: "devils-backbone", title: "Devil’s Backbone", poster: { src: "/posters/devils-backbone.webp", width: 720, height: 1080 }, track: { src: "/audio/devils-backbone.mp3", title: "Eso soy yo", duration: 174 } },
+  { slug: "pans-labyrinth", title: "Pan’s Labyrinth", poster: { src: "/posters/pans-labyrinth.webp", width: 720, height: 1074 }, track: { src: "/audio/pans-labyrinth.mp3", title: "A Princess", duration: 244 } },
+  { slug: "cracks", title: "Cracks", poster: { src: "/posters/cracks.webp", width: 300, height: 409 }, track: { src: "/audio/cracks.mp3", title: "Out of Bounds / Seduction", duration: 286 } },
+  { slug: "hemingway-and-gellhorn", title: "Hemingway and Gellhorn", poster: { src: "/posters/hemingway-and-gellhorn.webp", width: 720, height: 1066 }, track: { src: "/audio/hemingway-and-gellhorn.mp3", title: "The Joy of Irrigation", duration: 174 } },
+  { slug: "wrath-of-the-titans", title: "Wrath of the Titans", poster: { src: "/posters/wrath-of-the-titans.webp", width: 610, height: 904 }, track: { src: "/audio/wrath-of-the-titans.mp3", title: "Cyclops / To the Battle", duration: 440 } },
+  { slug: "byzantium", title: "Byzantium", poster: { src: "/posters/byzantium.webp", width: 720, height: 960 }, track: { src: "/audio/byzantium.mp3", title: "Whore", duration: 189 } },
+  { slug: "zhongkui", title: "Zhongkui: Snow Girl and the Dark Crystal", poster: { src: "/posters/zhongkui.webp", width: 720, height: 1006 }, track: { src: "/audio/zhongkui.mp3", title: "Little Snow / If I Were a Demon", duration: 214 } },
+  { slug: "antlers", title: "Antlers", poster: { src: "/posters/antlers.webp", width: 720, height: 1080 }, track: { src: "/audio/antlers.mp3", title: "Face Off / Aiden Is Just Sick", duration: 448 } },
+  { slug: "sound-of-freedom", title: "Sound of Freedom", poster: { src: "/posters/sound-of-freedom.webp", width: 720, height: 1008 }, track: { src: "/audio/sound-of-freedom.mp3", title: "Sound of Freedom", duration: 217 } },
+  { slug: "raoul-taburin", title: "Raoul Taburin", poster: { src: "/posters/raoul-taburin.webp", width: 720, height: 1080 }, track: { src: "/audio/raoul-taburin.mp3", title: "Rêverie", duration: 244 } },
 ];
 
 /** The two library albums, licensable through APM (US) and Extreme (elsewhere). */
@@ -149,7 +154,7 @@ export const albums: Album[] = [
     title: "Winter Gothic",
     description:
       "Winter-themed cinematic cues with a darkly romantic edge, recorded at Abbey Road with live orchestra and the Trinity Boys Choir.",
-    track: { src: "/audio/winter-gothic.mp3", title: "Grundtvig Prayer" },
+    track: { src: "/audio/winter-gothic.mp3", title: "Grundtvig Prayer", duration: 225 },
     links: [
       { label: "United States (APM)", href: "https://www.apmmusic.com/albums/KPM-2080/KPM_KPM_2080_00901" },
       {
@@ -163,7 +168,7 @@ export const albums: Album[] = [
     title: "States of Mind",
     description:
       "Cinematic minimalism exploring human emotions, recorded at British Grove Studios in London.",
-    track: { src: "/audio/states-of-mind.mp3", title: "Panic" },
+    track: { src: "/audio/states-of-mind.mp3", title: "Panic", duration: 249 },
     links: [
       { label: "United States (APM)", href: "https://www.apmmusic.com/albums/KPM-2002/KPM_KPM_2002_01301" },
       {

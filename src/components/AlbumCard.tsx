@@ -60,7 +60,7 @@ export default function AlbumCard({ album }: { album: Album }) {
         </p>
 
         {album.track ? (
-          <TrackPlayer src={album.track.src} title={album.track.title} />
+          <TrackPlayer {...album.track} />
         ) : null}
 
         <ul className="space-y-2">

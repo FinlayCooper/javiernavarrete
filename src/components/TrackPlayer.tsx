@@ -20,6 +20,8 @@ type Props = {
   /** Path under /public/audio */
   src: string;
   title: string;
+  /** Known length in seconds, shown until the file's own metadata loads. */
+  duration: number;
 };
 
 function formatTime(seconds: number) {
@@ -29,12 +31,12 @@ function formatTime(seconds: number) {
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-export default function TrackPlayer({ src, title }: Props) {
+export default function TrackPlayer({ src, title, duration: knownDuration }: Props) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
   const [elapsed, setElapsed] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState(knownDuration);
 
   useEffect(() => {
     const el = audioRef.current;
@@ -76,7 +78,9 @@ export default function TrackPlayer({ src, title }: Props) {
       <audio
         ref={audioRef}
         src={src}
-        preload="metadata"
+        // Nothing is fetched until play, so a page of players doesn't pull
+        // every file down on load and hold up the images.
+        preload="none"
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
         onEnded={() => setPlaying(false)}
