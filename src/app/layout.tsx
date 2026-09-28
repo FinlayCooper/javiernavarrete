@@ -7,6 +7,8 @@ const cormorant = Cormorant({
   variable: "--font-cormorant",
   subsets: ["latin"],
   weight: ["300", "400", "500"],
+  // Italic is used for the small row labels on /library.
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {

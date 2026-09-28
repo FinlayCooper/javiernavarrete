@@ -21,7 +21,7 @@ export default function Footer({ showHomeLink = false }: Props) {
           <Link
             href="/"
             aria-label={`Back to the ${siteName} cover`}
-            className="text-cream/45 transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none"
+            className="text-accent transition-colors duration-200 hover:text-cream focus-visible:text-cream focus-visible:outline-none"
           >
             <ArrowGlyph size={30} />
           </Link>

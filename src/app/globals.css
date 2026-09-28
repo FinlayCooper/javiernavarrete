@@ -1,14 +1,16 @@
 @import "tailwindcss";
 
 /*
- * Palette measured from cover/web cover.pdf:
- *   title/nav  0.921 0.990 0.831  -> #EBFCD4
- *   link blue  0.001 0.634 1.000  -> #00A2FF  (used as the hover accent)
+ * Palette:
+ *   title/nav  #EBFCD4  measured from cover/web cover.pdf
+ *   gold       #C8B04A  sampled from the client's arrow and flower icons (the
+ *                       doc's General/Visual tab); the brief asks for "pale
+ *                       yellow or soft golds". Used for the glyphs and hovers.
  */
 @theme {
   --color-ground: #0a0806;
   --color-cream: #ebfcd4;
-  --color-accent: #00a2ff;
+  --color-accent: #c8b04a;
 
   --font-display: var(--font-cormorant), Georgia, "Times New Roman", serif;
 

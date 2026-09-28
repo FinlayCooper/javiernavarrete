@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { ArrowGlyph } from "./Glyph";
 import type { OperaPhoto } from "@/content/site";
 
 /**
@@ -44,7 +45,7 @@ export default function OperaCarousel({ photos }: { photos: OperaPhoto[] }) {
   }
 
   const arrow =
-    "absolute top-1/2 z-10 hidden -translate-y-1/2 p-3 text-cream/70 transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none sm:block";
+    "absolute top-1/2 z-10 hidden -translate-y-1/2 p-2 text-accent transition-colors duration-200 hover:text-cream focus-visible:text-cream focus-visible:outline-none sm:block";
 
   return (
     <section
@@ -85,9 +86,7 @@ export default function OperaCarousel({ photos }: { photos: OperaPhoto[] }) {
           aria-label="Previous photo"
           className={`${arrow} left-1`}
         >
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-            <path d="M15 4l-8 8 8 8" />
-          </svg>
+          <ArrowGlyph size={22} />
         </button>
         <button
           type="button"
@@ -95,9 +94,7 @@ export default function OperaCarousel({ photos }: { photos: OperaPhoto[] }) {
           aria-label="Next photo"
           className={`${arrow} right-1`}
         >
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-            <path d="M9 4l8 8-8 8" />
-          </svg>
+          <ArrowGlyph size={22} className="-scale-x-100" />
         </button>
       </div>
 

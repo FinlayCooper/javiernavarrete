@@ -14,8 +14,7 @@ export default function LibraryPage() {
     <SectionPage slug="library">
       <Prose>
         <p className="mx-auto max-w-xl text-center text-base leading-relaxed text-cream/70 sm:text-lg">
-          Two albums written outside of any film, available to license for
-          advertising, games and screen.
+          Two albums available for licensing
         </p>
 
         <ul className="mt-14 grid grid-cols-1 items-start gap-14 sm:grid-cols-2 sm:gap-10">

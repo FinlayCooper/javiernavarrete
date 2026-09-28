@@ -30,28 +30,30 @@ export type NewsPost = {
 
 export const siteName = "Javier Navarrete";
 
-/** Order matches the bottom nav in the approved design. */
+/**
+ * Order matches the bottom nav in the approved design, except Listen (formerly
+ * Media), which the client asked to rename and move after Contact.
+ */
 export const sections: Section[] = [
   { slug: "about", label: "ABOUT", image: "/backgrounds/about.webp" },
   { slug: "movies", label: "MOVIES", image: "/backgrounds/movies.webp" },
-  { slug: "media", label: "MEDIA", image: "/backgrounds/media.webp" },
   { slug: "opera", label: "OPERA", image: "/backgrounds/opera.webp" },
   { slug: "library", label: "LIBRARY", image: "/backgrounds/library.webp" },
   { slug: "news", label: "NEWS", image: "/backgrounds/news.webp" },
   { slug: "contact", label: "CONTACT", image: "/backgrounds/contact.webp" },
+  { slug: "listen", label: "LISTEN", image: "/backgrounds/media.webp" },
 ];
 
 export const coverImage = "/backgrounds/cover.webp";
 
-// TODO: replace with the client's real profile URLs.
+/** Shown in the footer on every page, and larger on /listen. */
 export const socials: SocialLink[] = [
-  { label: "YouTube", href: "#" },
-  { label: "Spotify", href: "#" },
-  { label: "Apple Music", href: "#" },
+  { label: "YouTube", href: "https://music.youtube.com/channel/UCNbV8jd_rYjyujdV9IBIzAg" },
+  { label: "Spotify", href: "https://open.spotify.com/artist/6Ayc7FBYR3HjkGQb7SZrzQ" },
+  { label: "Apple Music", href: "https://music.apple.com/us/artist/javier-navarrete/186244621" },
 ];
 
-// TODO: replace with the client's real address.
-export const contactEmail = "hello@example.com";
+export const contactEmail = "asianavarretearts@gmail.com";
 
 /** Empty until the admin UI can write to it. */
 export const newsPosts: NewsPost[] = [];
@@ -98,11 +100,18 @@ export type Album = {
   slug: string;
   title: string;
   description: string;
-  /** Cover art in /public/albums. Undefined until the client sends it. */
+  /** Cover art in /public/albums; without one the card shows a "Cover to come" tile. */
   cover?: string;
   track?: Track;
-  /** Two territories: APM for the US, Extreme for everywhere else. */
-  links: SocialLink[];
+  /** Streaming, for people who just want to hear it. */
+  listen: SocialLink[];
+  /** Licensing is split by territory: APM in the US, Extreme everywhere else. */
+  license: LicenseLink[];
+};
+
+export type LicenseLink = SocialLink & {
+  /** The library behind the link; kept out of the visible label, which names the territory. */
+  library: string;
 };
 
 /**
@@ -124,6 +133,24 @@ export const bio: string[] = [
   "Currently, he is working on compiling his electronic music from throughout the years.",
 ];
 
+/** A photo with its intrinsic size and a photographer credit. */
+export type CreditedPhoto = {
+  /** Path under /public */
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+  photographer: string;
+};
+
+/**
+ * Portrait for the bottom of /about. Undefined until the client sends it — the
+ * page then shows nothing in its place. When it arrives, drop it in
+ * /public/about/ and fill this in, e.g.
+ * `{ src: "/about/portrait.webp", width, height, alt: "Javier Navarrete", photographer: "Jean-Jacques Annaud" }`.
+ */
+export const aboutPhoto: CreditedPhoto | undefined = undefined;
+
 /**
  * Order is the content doc's own. It labels the list "chronological"; note that
  * Raoul Taburin (2018) sits last there, after Sound of Freedom (2023) — kept as
@@ -132,14 +159,14 @@ export const bio: string[] = [
  * The doc asks for "no additional info about the movie" beyond the title, so
  * there is deliberately no year or director here.
  */
-/** Sourced from the content doc. See LOW_RES_POSTERS for the two that need replacing. */
+/** Sourced from the content doc; the soft ones replaced with larger copies of the same artwork. */
 export const films: Film[] = [
-  { slug: "in-a-glass-cage", title: "In a Glass Cage", poster: { src: "/posters/in-a-glass-cage.webp", width: 190, height: 281 }, track: { src: "/audio/in-a-glass-cage.mp3", title: "Ritual", duration: 408 } },
+  { slug: "in-a-glass-cage", title: "In a Glass Cage", poster: { src: "/posters/in-a-glass-cage.webp", width: 720, height: 1026 }, track: { src: "/audio/in-a-glass-cage.mp3", title: "Ritual", duration: 408 } },
   { slug: "devils-backbone", title: "Devil’s Backbone", poster: { src: "/posters/devils-backbone.webp", width: 720, height: 1080 }, track: { src: "/audio/devils-backbone.mp3", title: "Eso soy yo", duration: 174 } },
   { slug: "pans-labyrinth", title: "Pan’s Labyrinth", poster: { src: "/posters/pans-labyrinth.webp", width: 720, height: 1074 }, track: { src: "/audio/pans-labyrinth.mp3", title: "A Princess", duration: 244 } },
-  { slug: "cracks", title: "Cracks", poster: { src: "/posters/cracks.webp", width: 300, height: 409 }, track: { src: "/audio/cracks.mp3", title: "Out of Bounds / Seduction", duration: 286 } },
+  { slug: "cracks", title: "Cracks", poster: { src: "/posters/cracks.webp", width: 720, height: 1080 }, track: { src: "/audio/cracks.mp3", title: "Out of Bounds / Seduction", duration: 286 } },
   { slug: "hemingway-and-gellhorn", title: "Hemingway and Gellhorn", poster: { src: "/posters/hemingway-and-gellhorn.webp", width: 720, height: 1066 }, track: { src: "/audio/hemingway-and-gellhorn.mp3", title: "The Joy of Irrigation", duration: 174 } },
-  { slug: "wrath-of-the-titans", title: "Wrath of the Titans", poster: { src: "/posters/wrath-of-the-titans.webp", width: 610, height: 904 }, track: { src: "/audio/wrath-of-the-titans.mp3", title: "Cyclops / To the Battle", duration: 440 } },
+  { slug: "wrath-of-the-titans", title: "Wrath of the Titans", poster: { src: "/posters/wrath-of-the-titans.webp", width: 720, height: 1067 }, track: { src: "/audio/wrath-of-the-titans.mp3", title: "Cyclops / To the Battle", duration: 440 } },
   { slug: "byzantium", title: "Byzantium", poster: { src: "/posters/byzantium.webp", width: 720, height: 960 }, track: { src: "/audio/byzantium.mp3", title: "Whore", duration: 189 } },
   { slug: "zhongkui", title: "Zhongkui: Snow Girl and the Dark Crystal", poster: { src: "/posters/zhongkui.webp", width: 720, height: 1006 }, track: { src: "/audio/zhongkui.mp3", title: "Little Snow / If I Were a Demon", duration: 214 } },
   { slug: "antlers", title: "Antlers", poster: { src: "/posters/antlers.webp", width: 720, height: 1080 }, track: { src: "/audio/antlers.mp3", title: "Face Off / Aiden Is Just Sick", duration: 448 } },
@@ -147,18 +174,24 @@ export const films: Film[] = [
   { slug: "raoul-taburin", title: "Raoul Taburin", poster: { src: "/posters/raoul-taburin.webp", width: 720, height: 1080 }, track: { src: "/audio/raoul-taburin.mp3", title: "Rêverie", duration: 244 } },
 ];
 
-/** The two library albums, licensable through APM (US) and Extreme (elsewhere). */
+/** The two library albums: streamable, and licensable through APM (US) or Extreme (elsewhere). */
 export const albums: Album[] = [
   {
     slug: "winter-gothic",
     title: "Winter Gothic",
     description:
       "Winter-themed cinematic cues with a darkly romantic edge, recorded at Abbey Road with live orchestra and the Trinity Boys Choir.",
+    cover: "/albums/winter-gothic.webp",
     track: { src: "/audio/winter-gothic.mp3", title: "Grundtvig Prayer", duration: 225 },
-    links: [
-      { label: "United States (APM)", href: "https://www.apmmusic.com/albums/KPM-2080/KPM_KPM_2080_00901" },
+    listen: [
+      { label: "Spotify", href: "https://open.spotify.com/album/7eV1PyQMHhu3qALBdc1Qx0" },
+      { label: "Apple Music", href: "https://music.apple.com/us/album/javier-navarrete-winter-gothic/1458868228" },
+    ],
+    license: [
+      { label: "United States", library: "APM", href: "https://www.apmmusic.com/albums/KPM-2080/KPM_KPM_2080_00901" },
       {
-        label: "Outside the US (Extreme)",
+        label: "Rest of world",
+        library: "Extreme Music",
         href: "https://www.extrememusic.com/albums/10186?match=eyJpZHMiOlsyNDgzNzRdLCJxIjoiV2ludGVyIEdvdGhpYyJ9",
       },
     ],
@@ -168,24 +201,22 @@ export const albums: Album[] = [
     title: "States of Mind",
     description:
       "Cinematic minimalism exploring human emotions, recorded at British Grove Studios in London.",
+    cover: "/albums/states-of-mind.webp",
     track: { src: "/audio/states-of-mind.mp3", title: "Panic", duration: 249 },
-    links: [
-      { label: "United States (APM)", href: "https://www.apmmusic.com/albums/KPM-2002/KPM_KPM_2002_01301" },
+    listen: [
+      { label: "Spotify", href: "https://open.spotify.com/album/7eJM0VlEFDVZfkLXVSCxTA" },
+      { label: "Apple Music", href: "https://music.apple.com/us/album/javier-navarrete-states-of-mind/1194463843" },
+    ],
+    license: [
+      { label: "United States", library: "APM", href: "https://www.apmmusic.com/albums/KPM-2002/KPM_KPM_2002_01301" },
       {
-        label: "Outside the US (Extreme)",
+        label: "Rest of world",
+        library: "Extreme Music",
         href: "https://www.extrememusic.com/albums/10108?match=eyJpZHMiOlsyNDcwOThdLCJxIjoiU3RhdGVzIG9mIE1pbmQifQ%3D%3D",
       },
     ],
   },
 ];
-
-/**
- * These two came through the content doc at thumbnail size and will look soft
- * beside the rest. The doc offers: "If you need me to find a higher resolution
- * image of the poster, LMK!" — ask, then drop the replacement into
- * /public/posters and update the width/height above.
- */
-export const LOW_RES_POSTERS = ["in-a-glass-cage", "cracks"] as const;
 
 /** A photo in the /opera carousel. All are 3:2 landscape, so no per-photo size. */
 export type OperaPhoto = {
@@ -194,17 +225,17 @@ export type OperaPhoto = {
   alt: string;
 };
 
-/** From the client's "fotos opera" folder, first and last kept where the filenames put them. */
+/** In the order the client set in the doc's Feedback tab. */
 export const operaPhotos: OperaPhoto[] = [
   { src: "/opera/primera.webp", alt: "Musicians and a dancer among candles and scattered flowers on the church floor" },
-  { src: "/opera/mg-5898.webp", alt: "A bearded singer in a dark tunic mid-aria, dancers behind him" },
-  { src: "/opera/mg-6019.webp", alt: "A line of robed clergy holding candles and censers" },
   { src: "/opera/isabel.webp", alt: "Isabel in white, singing before the gilded altarpiece" },
   { src: "/opera/costumes.webp", alt: "A spectral figure touching Juan’s face in front of the altarpiece" },
+  { src: "/opera/mg-6019.webp", alt: "A line of robed clergy holding candles and censers" },
+  { src: "/opera/representacion.webp", alt: "A figure in red standing over a fallen man, candles all around" },
+  { src: "/opera/mg-5898.webp", alt: "A bearded singer in a dark tunic mid-aria, dancers behind him" },
   { src: "/opera/make-up.webp", alt: "Juan, face darkened, in a pale shawl beside a masked figure" },
   { src: "/opera/drums.webp", alt: "Hooded drummers striking the bass drums in the candlelit nave" },
   { src: "/opera/ultima.webp", alt: "The choir in white along the carved gallery, lit gold against blue" },
-  { src: "/opera/representacion.webp", alt: "A figure in red standing over a fallen man, candles all around" },
 ];
 
 export type OperaSection = {

@@ -1,0 +1,100 @@
+.image{
+  position: relative;
+}
+.image a{
+  display: block;      
+  position: absolute;
+  border: 0;
+  text-decoration:none;
+  
+}
+a 
+{   
+ text-decoration:none; 
+	border: 0; 
+}   
+:focus{outline:0;}
+
+  
+.caja { width: 69%;
+ margin: 0 auto; background:#000000}
+ 
+@media (max-width: 767px) { .caja{width:100%} }
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 2) { 
+.caja{width:100%}
+}
+
+
+
+@media (max-width: 767px) { 
+
+	.caja{width:100%}
+  display: none !important;
+ }
+
+ @media (max-width: 600px) { 
+
+	.caja{width:100%}
+	.ug-gallery-wrapper .ug-bullets .ug-bullet {
+		display: none !important;  
+	}
+ }
+ 
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 2) { 
+.caja{width:100%}
+
+}
+
+
+#loginScreen { 
+	height:100%; 
+	width:100%; 
+	margin:0 auto; 
+	position:absolute; 
+	z-index:10; 
+	left: 0px; 
+	top: 0px;
+	display:none; 
+	background: #000; 
+	
+} 
+#loginScreen:target, #loginScreen:target + #cover{ 
+	display:block; 
+	opacity:2; 
+} 
+
+.cancel { 
+	display:block; 
+	position:absolute; 
+	top:3px; right:2px; 
+	background:rgb(245,245,245); 
+	color:black; height:30px; 
+	width:35px; 
+	font-size:30px; 
+	text-decoration:none; 
+	text-align:center; 
+	font-weight:bold;
+} 
+
+
+
+.ug-button-fullscreen.ug-skin-default {
+
+    width: 32px!important;
+    height: 32px!important;
+	left: 1.25% !important;
+	top: 5% !important;
+}
+
+.ug-button-fullscreen.ug-skin-default.ug-fullscreenmode {
+    background-position: 0px -66px!important;
+}
