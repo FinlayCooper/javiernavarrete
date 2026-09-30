@@ -47,7 +47,7 @@ export default function Hero({ image, currentSlug, fadeIn = false, showScrollCue
         <h1 className="text-center text-display font-normal tracking-[0.09em] text-balance">
           <Link
             href="/"
-            className="text-cream transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none"
+            className="text-cream transition-colors duration-200 hover:text-hover focus-visible:text-hover focus-visible:outline-none"
           >
             {siteName.toUpperCase()}
           </Link>

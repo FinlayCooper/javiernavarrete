@@ -3,6 +3,7 @@ import Image from "next/image";
 import SectionPage from "@/components/SectionPage";
 import Prose from "@/components/Prose";
 import TrackPlayer from "@/components/TrackPlayer";
+import { linkClass } from "@/components/linkClass";
 import { films, getSection, siteName } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -13,7 +14,8 @@ export const metadata: Metadata = {
 /**
  * Per the content doc: "single file scroll down with one poster per row, and its
  * title below the poster along with the player … no additional info about the
- * movie needed".
+ * movie needed". A "Keep Listening" link to the score's album sits under the
+ * player where one is available (added in the second round of feedback).
  */
 export default function MoviesPage() {
   return (
@@ -39,6 +41,20 @@ export default function MoviesPage() {
                 <div className="mt-4">
                   <TrackPlayer {...film.track} />
                 </div>
+              ) : null}
+
+              {film.album ? (
+                <p className="mt-3 text-center text-sm sm:text-base">
+                  <a
+                    href={film.album}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    aria-label={`Keep listening to the ${film.title} score on Spotify`}
+                    className={linkClass}
+                  >
+                    Keep Listening
+                  </a>
+                </p>
               ) : null}
             </li>
           ))}

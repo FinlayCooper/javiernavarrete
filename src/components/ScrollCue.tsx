@@ -33,13 +33,13 @@ export default function ScrollCue() {
     >
       <FlowerGlyph
         size={11}
-        className="shrink-0 text-cream/60 transition-colors duration-200 group-hover:text-accent group-focus-visible:text-accent"
+        className="shrink-0 text-cream/60 transition-colors duration-200 group-hover:text-hover group-focus-visible:text-hover"
       />
       <span
         aria-hidden
         className="relative mt-1.5 w-px flex-1 overflow-hidden bg-cream/20"
       >
-        <span className="thread-pulse absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-transparent via-cream to-transparent group-hover:via-accent" />
+        <span className="thread-pulse absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-transparent via-cream to-transparent group-hover:via-hover" />
       </span>
     </button>
   );

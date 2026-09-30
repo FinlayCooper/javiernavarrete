@@ -5,12 +5,15 @@
  *   title/nav  #EBFCD4  measured from cover/web cover.pdf
  *   gold       #C8B04A  sampled from the client's arrow and flower icons (the
  *                       doc's General/Visual tab); the brief asks for "pale
- *                       yellow or soft golds". Used for the glyphs and hovers.
+ *                       yellow or soft golds". Used for the glyphs.
+ *   link blue  #00A2FF  measured from cover/web cover.pdf. The hover/focus
+ *                       colour — the client preferred it to gold on hover.
  */
 @theme {
   --color-ground: #0a0806;
   --color-cream: #ebfcd4;
   --color-accent: #c8b04a;
+  --color-hover: #00a2ff;
 
   --font-display: var(--font-cormorant), Georgia, "Times New Roman", serif;
 

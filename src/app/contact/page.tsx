@@ -18,7 +18,7 @@ export default function ContactPage() {
         <p className="mt-4 text-center">
           <a
             href={`mailto:${contactEmail}`}
-            className="break-all text-xl tracking-[0.08em] text-cream underline decoration-cream/25 underline-offset-8 transition-colors duration-200 hover:text-accent hover:decoration-accent focus-visible:text-accent focus-visible:outline-none sm:text-2xl"
+            className="break-all text-xl tracking-[0.08em] text-cream underline decoration-cream/25 underline-offset-8 transition-colors duration-200 hover:text-hover hover:decoration-hover focus-visible:text-hover focus-visible:outline-none sm:text-2xl"
           >
             {contactEmail}
           </a>

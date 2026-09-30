@@ -34,7 +34,7 @@ export default function Footer({ showHomeLink = false }: Props) {
                 href={social.href}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="uppercase text-cream/80 transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none"
+                className="uppercase text-cream/80 transition-colors duration-200 hover:text-hover focus-visible:text-hover focus-visible:outline-none"
               >
                 {social.label}
               </a>

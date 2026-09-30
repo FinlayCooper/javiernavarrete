@@ -24,7 +24,7 @@ export default function BottomNav({ currentSlug }: Props) {
               <Link
                 href={`/${section.slug}`}
                 aria-current={isCurrent ? "page" : undefined}
-                className={`transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none ${
+                className={`transition-colors duration-200 hover:text-hover focus-visible:text-hover focus-visible:outline-none ${
                   isCurrent
                     ? "text-cream underline underline-offset-[0.4em] decoration-from-font"
                     : "text-cream/80"

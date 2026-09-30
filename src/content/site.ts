@@ -20,19 +20,40 @@ export type SocialLink = {
   href: string;
 };
 
+/** A linked phrase inside a paragraph. */
+export type InlineLink = {
+  text: string;
+  href: string;
+};
+
+/** A paragraph of copy: plain, or a run of text with linked phrases in it. */
+export type Paragraph = string | (string | InlineLink)[];
+
+/** The paragraph with its links flattened to their text, e.g. for meta tags. */
+export function plainText(paragraph: Paragraph): string {
+  return typeof paragraph === "string"
+    ? paragraph
+    : paragraph.map((part) => (typeof part === "string" ? part : part.text)).join("");
+}
+
 export type NewsPost = {
   id: string;
   title: string;
-  /** ISO date, e.g. "2026-09-03" */
-  date: string;
-  body: string;
+  /** ISO date, e.g. "2026-09-03". Optional; not every post comes with one. */
+  date?: string;
+  /** Shown under the title. Path under /public/news. */
+  image?: { src: string; width: number; height: number; alt: string };
+  body: Paragraph[];
+  /** Streaming links shown under the post, e.g. for a score it mentions. */
+  listen?: SocialLink[];
 };
 
 export const siteName = "Javier Navarrete";
 
 /**
- * Order matches the bottom nav in the approved design, except Listen (formerly
- * Media), which the client asked to rename and move after Contact.
+ * Order matches the bottom nav in the approved design. The Media tab (briefly
+ * renamed Listen) was cut at the client's request as repetitive of the footer;
+ * /media and /listen redirect home.
  */
 export const sections: Section[] = [
   { slug: "about", label: "ABOUT", image: "/backgrounds/about.webp" },
@@ -41,12 +62,11 @@ export const sections: Section[] = [
   { slug: "library", label: "LIBRARY", image: "/backgrounds/library.webp" },
   { slug: "news", label: "NEWS", image: "/backgrounds/news.webp" },
   { slug: "contact", label: "CONTACT", image: "/backgrounds/contact.webp" },
-  { slug: "listen", label: "LISTEN", image: "/backgrounds/media.webp" },
 ];
 
 export const coverImage = "/backgrounds/cover.webp";
 
-/** Shown in the footer on every page, and larger on /listen. */
+/** Shown in the footer on every page. */
 export const socials: SocialLink[] = [
   { label: "YouTube", href: "https://music.youtube.com/channel/UCNbV8jd_rYjyujdV9IBIzAg" },
   { label: "Spotify", href: "https://open.spotify.com/artist/6Ayc7FBYR3HjkGQb7SZrzQ" },
@@ -55,8 +75,32 @@ export const socials: SocialLink[] = [
 
 export const contactEmail = "asianavarretearts@gmail.com";
 
-/** Empty until the admin UI can write to it. */
-export const newsPosts: NewsPost[] = [];
+/** Newest first. Copy verbatim from the content doc's General/Visual tab. */
+export const newsPosts: NewsPost[] = [
+  {
+    id: "pans-labyrinth-20th-anniversary",
+    title: "20th Anniversary of Pan’s Labyrinth",
+    image: {
+      src: "/news/pans-labyrinth-20th.webp",
+      width: 399,
+      height: 501,
+      alt: "Pan’s Labyrinth 20th Anniversary poster: the faun leaning over Ofelia amid twisting branches",
+    },
+    body: [
+      "This autumn marks the 20th anniversary of the Academy Award-winning dark fantasy with a return to the big screen. Pan’s Labyrinth takes place in Franco’s Spain, where young Ofelia escapes into a haunting fantasy realm and embarks on a dangerous mission.",
+      [
+        "Directed by Guillermo del Toro and scored by Javier Navarrete, this anniversary offers audiences the rare opportunity to experience this modern classic in theaters across the U.S. from October 8—15. For tickets and more information, visit the ",
+        { text: "official re-release site", href: "https://panslabyrinth20.com/" },
+        ".",
+      ],
+    ],
+    listen: [
+      { label: "YouTube", href: "https://youtube.com/playlist?list=PLRW80bBvVD3UApJXm-hJA9IvKkweu_uls" },
+      { label: "Spotify", href: "https://open.spotify.com/album/5b5tWFo32wYBLMweeiL8vE" },
+      { label: "Apple Music", href: "https://music.apple.com/ca/album/pans-labyrinth-original-motion-picture-soundtrack/1535111909" },
+    ],
+  },
+];
 
 export function getSection(slug: string): Section {
   const section = sections.find((s) => s.slug === slug);
@@ -94,6 +138,8 @@ export type Film = {
    * the audio — the row then renders poster and title with no player.
    */
   track?: Track;
+  /** The score's album on Spotify, linked as "Keep Listening" under the player. */
+  album?: string;
 };
 
 export type Album = {
@@ -118,7 +164,7 @@ export type LicenseLink = SocialLink & {
  * The About copy, verbatim from the client's content doc, one entry per
  * paragraph.
  */
-export const bio: string[] = [
+export const bio: Paragraph[] = [
   "Javier Navarrete was born in Teruel, Spain in 1956.",
   "At the age of thirteen, in the wake of the emerging psychedelic scene, he began to play the guitar and take music reading and piano lessons.",
   "In 1973, he moved to Barcelona, where he studied under Chilean composer Gabriel Brncic. During this time, Navarrete was active in the city’s unfolding avant-garde scene, collaborating with musicians like Carles Santos, Eduardo Polonia and Alberto Iglesias.",
@@ -129,7 +175,14 @@ export const bio: string[] = [
   "Following this feat, he worked with American and European directors such as Neil Jordan, Joe Dante and Scott Cooper. To date, he has composed scores for over 50 films and series.",
   "The score for Hemingway and Gellhorn, directed by Philip Kaufman and starring Nicole Kidman and Clive Owen, earned him an Emmy Award in 2012.",
   "Navarrete is the author of an opera titled Los Amantes, produced with local talent in 2017 and 2018 in his hometown, based on the medieval legend of two star-crossed lovers in the city of Teruel.",
-  "According to a 2017 IndieWire ranking, Javier was deemed one of the top 12 composers of the 21st Century.",
+  [
+    "According to a ",
+    {
+      text: "2017 IndieWire ranking",
+      href: "https://www.indiewire.com/features/general/best-of-top-12-composers-of-the-21st-century-list-1201862553/",
+    },
+    ", Javier was deemed one of the top 12 composers of the 21st Century.",
+  ],
   "Currently, he is working on compiling his electronic music from throughout the years.",
 ];
 
@@ -162,15 +215,15 @@ export const aboutPhoto: CreditedPhoto | undefined = undefined;
 /** Sourced from the content doc; the soft ones replaced with larger copies of the same artwork. */
 export const films: Film[] = [
   { slug: "in-a-glass-cage", title: "In a Glass Cage", poster: { src: "/posters/in-a-glass-cage.webp", width: 720, height: 1026 }, track: { src: "/audio/in-a-glass-cage.mp3", title: "Ritual", duration: 408 } },
-  { slug: "devils-backbone", title: "Devil’s Backbone", poster: { src: "/posters/devils-backbone.webp", width: 720, height: 1080 }, track: { src: "/audio/devils-backbone.mp3", title: "Eso soy yo", duration: 174 } },
-  { slug: "pans-labyrinth", title: "Pan’s Labyrinth", poster: { src: "/posters/pans-labyrinth.webp", width: 720, height: 1074 }, track: { src: "/audio/pans-labyrinth.mp3", title: "A Princess", duration: 244 } },
-  { slug: "cracks", title: "Cracks", poster: { src: "/posters/cracks.webp", width: 720, height: 1080 }, track: { src: "/audio/cracks.mp3", title: "Out of Bounds / Seduction", duration: 286 } },
-  { slug: "hemingway-and-gellhorn", title: "Hemingway and Gellhorn", poster: { src: "/posters/hemingway-and-gellhorn.webp", width: 720, height: 1066 }, track: { src: "/audio/hemingway-and-gellhorn.mp3", title: "The Joy of Irrigation", duration: 174 } },
-  { slug: "wrath-of-the-titans", title: "Wrath of the Titans", poster: { src: "/posters/wrath-of-the-titans.webp", width: 720, height: 1067 }, track: { src: "/audio/wrath-of-the-titans.mp3", title: "Cyclops / To the Battle", duration: 440 } },
-  { slug: "byzantium", title: "Byzantium", poster: { src: "/posters/byzantium.webp", width: 720, height: 960 }, track: { src: "/audio/byzantium.mp3", title: "Whore", duration: 189 } },
-  { slug: "zhongkui", title: "Zhongkui: Snow Girl and the Dark Crystal", poster: { src: "/posters/zhongkui.webp", width: 720, height: 1006 }, track: { src: "/audio/zhongkui.mp3", title: "Little Snow / If I Were a Demon", duration: 214 } },
-  { slug: "antlers", title: "Antlers", poster: { src: "/posters/antlers.webp", width: 720, height: 1080 }, track: { src: "/audio/antlers.mp3", title: "Face Off / Aiden Is Just Sick", duration: 448 } },
-  { slug: "sound-of-freedom", title: "Sound of Freedom", poster: { src: "/posters/sound-of-freedom.webp", width: 720, height: 1008 }, track: { src: "/audio/sound-of-freedom.mp3", title: "Sound of Freedom", duration: 217 } },
+  { slug: "devils-backbone", title: "Devil’s Backbone", poster: { src: "/posters/devils-backbone.webp", width: 720, height: 1080 }, track: { src: "/audio/devils-backbone.mp3", title: "Eso soy yo", duration: 174 }, album: "https://open.spotify.com/album/5jnf0YsCbky09dkhAamHcu" },
+  { slug: "pans-labyrinth", title: "Pan’s Labyrinth", poster: { src: "/posters/pans-labyrinth.webp", width: 720, height: 1074 }, track: { src: "/audio/pans-labyrinth.mp3", title: "A Princess", duration: 244 }, album: "https://open.spotify.com/album/5b5tWFo32wYBLMweeiL8vE" },
+  { slug: "cracks", title: "Cracks", poster: { src: "/posters/cracks.webp", width: 720, height: 1080 }, track: { src: "/audio/cracks.mp3", title: "Out of Bounds / Seduction", duration: 286 }, album: "https://open.spotify.com/album/6jcdFGK4BiOGc3hbXkkgxT" },
+  { slug: "hemingway-and-gellhorn", title: "Hemingway and Gellhorn", poster: { src: "/posters/hemingway-and-gellhorn.webp", width: 720, height: 1066 }, track: { src: "/audio/hemingway-and-gellhorn.mp3", title: "The Joy of Irrigation", duration: 174 }, album: "https://open.spotify.com/album/4bpglRxu8xvO0Pjt76IjHs" },
+  { slug: "wrath-of-the-titans", title: "Wrath of the Titans", poster: { src: "/posters/wrath-of-the-titans.webp", width: 720, height: 1067 }, track: { src: "/audio/wrath-of-the-titans.mp3", title: "Cyclops / To the Battle", duration: 440 }, album: "https://open.spotify.com/album/3LNisntgd0P3SlJY0X0RmZ" },
+  { slug: "byzantium", title: "Byzantium", poster: { src: "/posters/byzantium.webp", width: 720, height: 960 }, track: { src: "/audio/byzantium.mp3", title: "Whore", duration: 189 }, album: "https://open.spotify.com/album/6L0Zq3lBNbiq16uYASfMQc" },
+  { slug: "zhongkui", title: "Zhongkui: Snow Girl and the Dark Crystal", poster: { src: "/posters/zhongkui.webp", width: 720, height: 1006 }, track: { src: "/audio/zhongkui.mp3", title: "Little Snow / If I Were a Demon", duration: 214 }, album: "https://open.spotify.com/album/44erO4UfQqWGSlv73O4nSo" },
+  { slug: "antlers", title: "Antlers", poster: { src: "/posters/antlers.webp", width: 720, height: 1080 }, track: { src: "/audio/antlers.mp3", title: "Face Off / Aiden Is Just Sick", duration: 448 }, album: "https://open.spotify.com/album/2qfLia4kxG1AvcauAnTsdf" },
+  { slug: "sound-of-freedom", title: "Sound of Freedom", poster: { src: "/posters/sound-of-freedom.webp", width: 720, height: 1008 }, track: { src: "/audio/sound-of-freedom.mp3", title: "Sound of Freedom", duration: 217 }, album: "https://open.spotify.com/album/5tUwBlIdWi25jFdXbimk7V" },
   { slug: "raoul-taburin", title: "Raoul Taburin", poster: { src: "/posters/raoul-taburin.webp", width: 720, height: 1080 }, track: { src: "/audio/raoul-taburin.mp3", title: "Rêverie", duration: 244 } },
 ];
 

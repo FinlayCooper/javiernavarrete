@@ -58,7 +58,7 @@ export default function OperaCarousel({ photos }: { photos: OperaPhoto[] }) {
           ref={trackRef}
           tabIndex={0}
           onKeyDown={onKeyDown}
-          className="flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain [scrollbar-width:none] focus-visible:outline focus-visible:outline-1 focus-visible:outline-accent [&::-webkit-scrollbar]:hidden"
+          className="flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain [scrollbar-width:none] focus-visible:outline focus-visible:outline-1 focus-visible:outline-hover [&::-webkit-scrollbar]:hidden"
         >
           {photos.map((photo, i) => (
             <div
@@ -109,7 +109,7 @@ export default function OperaCarousel({ photos }: { photos: OperaPhoto[] }) {
             className="group p-1.5 focus-visible:outline-none"
           >
             <span
-              className={`block h-1.5 w-1.5 rounded-full transition-colors duration-200 group-hover:bg-accent group-focus-visible:bg-accent ${
+              className={`block h-1.5 w-1.5 rounded-full transition-colors duration-200 group-hover:bg-hover group-focus-visible:bg-hover ${
                 i === index ? "bg-cream" : "bg-cream/25"
               }`}
             />

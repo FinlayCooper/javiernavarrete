@@ -1,10 +1,8 @@
 import Image from "next/image";
 import TrackPlayer from "./TrackPlayer";
 import { FlowerGlyph } from "./Glyph";
+import { linkClass } from "./linkClass";
 import type { Album } from "@/content/site";
-
-const linkClass =
-  "tracking-[0.04em] text-cream/85 underline decoration-cream/20 underline-offset-4 transition-colors duration-200 hover:text-accent hover:decoration-accent focus-visible:text-accent focus-visible:decoration-accent focus-visible:outline-none";
 
 /**
  * A library album: cover, title, then description, player and links, always on

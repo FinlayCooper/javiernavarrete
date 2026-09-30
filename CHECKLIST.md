@@ -23,7 +23,17 @@ All code items done (uncommitted). Nothing has been built or run — see Verify.
 - [x] **About photo slot** — pre-wired; shows photo + "Photograph by Jean-Jacques Annaud" once a photo is set
 
 ### Not code (Finlay)
-- [ ] **"Powered by Netlify" pop-up** — likely the Netlify Drawer on deploy-preview / permalink URLs; disable under Site configuration → Deploy Previews, or share the production URL
+- [ ] **"Powered by Netlify" pop-up** — the live site is on cPanel, so this should go away once the client uses the real domain rather than a Netlify URL; confirm with them
+
+## A2. Round 2 (Feedback round 2 + News content)
+
+Done, uncommitted. `npm run build` and `STATIC_EXPORT=true npm run build` pass.
+
+- [x] **News** — "20th Anniversary of Pan’s Labyrinth" post: image under the title, copy verbatim, "official re-release site" linked, "Stream the score" row (YouTube / Spotify / Apple Music)
+- [x] **Listen tab cut** — page, nav entry and `backgrounds/media.webp` removed; `/media` and `/listen` redirect to `/`
+- [x] **Blue hover** — hovers/focus back to `#00a2ff` (`--color-hover`); gold stays on the icons
+- [x] **IndieWire link** — on "2017 IndieWire ranking" in About
+- [x] **Keep Listening** — Spotify album link under the player for every film except In a Glass Cage and Raoul Taburin
 
 ## B. Doable once you grab a resource
 
@@ -34,11 +44,23 @@ All code items done (uncommitted). Nothing has been built or run — see Verify.
 ## C. Blocked on the client
 
 - [ ] **About photo** — to be sent as an attachment (one-line change once it arrives, thanks to the pre-wired slot)
-- [ ] **News content** — "WORKING ON THIS WILL UPDATE ASAP"
+- [ ] **News image** — the doc's copy is only 399×501; swap a larger one into `public/news/pans-labyrinth-20th.webp` (update width/height in `site.ts`)
 - [ ] **Raoul Taburin placement** — doc says chronological but lists 2018 after 2023
 
 ## Verify (you run these)
 
-- [ ] `npm run dev`: footer arrow + gold hovers; `/opera` order, gold arrows, keyboard ←/→; flower tab icon; `/library` all open, titles centred; `/contact` mailto; nav ends `NEWS CONTACT LISTEN`; `/media` → `/listen`; `/losamantes` splash, menu, gallery and sub-pages all load; `/opera/gallery.html` → `/losamantes/gallery.html`
+- [ ] `npm run dev`: footer arrow + gold hovers; `/opera` order, gold arrows, keyboard ←/→; flower tab icon; `/library` all open, titles centred; `/contact` mailto; nav ends `NEWS CONTACT`; blue hovers, gold icons; `/news` post and links; About IndieWire link; `/movies` Keep Listening (9 of 11); `/media` and `/listen` → `/`; `/losamantes` splash, menu, gallery and sub-pages all load; `/opera/gallery.html` → `/losamantes/gallery.html`
 - [ ] `npm run build` passes
-- [ ] After deploy: recheck `/losamantes` on the Netlify preview
+
+## Deploy (static export → cPanel)
+
+- [ ] `STATIC_EXPORT=true npm run build`, zip the *contents* of `out/`, upload and extract into `public_html` (overwrite)
+- [ ] One-time: delete `public_html/media/` and `public_html/listen/` (cut tab), `public_html/backgrounds/media.webp`, and `public_html/favicon.ico` (old default icon)
+- [ ] One-time: add to `public_html/.htaccess`, below the cPanel PHP block:
+  ```apache
+  ErrorDocument 404 /404.html
+  RewriteEngine On
+  RewriteRule ^(media|listen)/?$ / [R=301,L]
+  ```
+- [ ] Check live: `/news/`, `/movies/`, `/about/`, `/contact/`, `/library/`; `/media` and `/listen` → `/`; `/losamantes` loads with images and gallery; flower tab icon
+- [ ] Optional: once `/losamantes` is confirmed, remove the old opera files left in `public_html/opera/` (keep the new `index.html`)

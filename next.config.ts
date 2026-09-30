@@ -17,8 +17,10 @@ const nextConfig: NextConfig = {
         // server's own directory handling serves /losamantes/ instead.
         async redirects() {
           return [
-            // Tab renamed at the client's request.
-            { source: "/media", destination: "/listen", permanent: true },
+            // The Media tab (later renamed Listen) was cut at the client's
+            // request; send old links home.
+            { source: "/media", destination: "/", permanent: true },
+            { source: "/listen", destination: "/", permanent: true },
             // The old Los Amantes site in public/losamantes/ uses relative
             // links, which only resolve from inside the folder. Sending the
             // bare path to a file URL sidesteps Next stripping the trailing

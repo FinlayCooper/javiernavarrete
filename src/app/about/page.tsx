@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import SectionPage from "@/components/SectionPage";
 import Prose from "@/components/Prose";
+import RichText from "@/components/RichText";
 import { FlowerGlyph } from "@/components/Glyph";
-import { aboutPhoto, bio, getSection, siteName } from "@/content/site";
+import { aboutPhoto, bio, getSection, plainText, siteName } from "@/content/site";
 
 export const metadata: Metadata = {
   title: `${getSection("about").label} — ${siteName}`,
-  description: bio[0],
+  description: plainText(bio[0]),
 };
 
 export default function AboutPage() {
@@ -16,7 +17,7 @@ export default function AboutPage() {
       <Prose>
         <div className="space-y-6 text-base leading-relaxed text-cream/85 sm:text-lg sm:leading-relaxed">
           {bio.map((paragraph) => (
-            <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+            <RichText key={plainText(paragraph).slice(0, 40)} paragraph={paragraph} />
           ))}
         </div>
 

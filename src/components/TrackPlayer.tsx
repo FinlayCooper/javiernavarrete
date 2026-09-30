@@ -94,7 +94,7 @@ export default function TrackPlayer({ src, title, duration: knownDuration }: Pro
           type="button"
           onClick={toggle}
           aria-label={playing ? `Pause ${title}` : `Play ${title}`}
-          className="shrink-0 text-cream/90 transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none"
+          className="shrink-0 text-cream/90 transition-colors duration-200 hover:text-hover focus-visible:text-hover focus-visible:outline-none"
         >
           {playing ? (
             <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden>
@@ -116,7 +116,7 @@ export default function TrackPlayer({ src, title, duration: knownDuration }: Pro
           type="button"
           onClick={toggleMute}
           aria-label={muted ? `Unmute ${title}` : `Mute ${title}`}
-          className="shrink-0 text-cream/75 transition-colors duration-200 hover:text-accent focus-visible:text-accent focus-visible:outline-none"
+          className="shrink-0 text-cream/75 transition-colors duration-200 hover:text-hover focus-visible:text-hover focus-visible:outline-none"
         >
           {muted ? (
             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden>
